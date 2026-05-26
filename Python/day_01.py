@@ -100,3 +100,6 @@ for i in range(len(data)):
        print("Found byte at index", i)
        break
     print(data[i])
+
+
+
