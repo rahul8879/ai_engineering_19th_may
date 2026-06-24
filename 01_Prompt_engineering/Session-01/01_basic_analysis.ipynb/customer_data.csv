@@ -1,4 +1,4 @@
-﻿Customer ID,CIBIL Score,Monthly Income (₹),#Loan, # closed loanLoan Status
+﻿Customer ID,CIBIL Score,Monthly Income (₹),Loan Status
 1001,610,"₹15,000",Rejected
 1002,760,"₹55,000",Approved
 1003,670,"₹35,000",Approved
