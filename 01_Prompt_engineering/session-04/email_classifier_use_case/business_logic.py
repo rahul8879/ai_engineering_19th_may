@@ -7,21 +7,26 @@ import time
 from collections import Counter
 load_dotenv()
 print(load_dotenv())
-client = OpenAI()
+client = OpenAI(api_key="sk-gdgdfgdfgdfg")
 
 
 
 def call_llm(prompt):
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
-    return response.choices[0].message.content
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            max_tokens=10
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        print(f"Error calling LLM: {e}")
+        return "Error"
 
 # print(call_llm("Hello, how are you?"))
 
