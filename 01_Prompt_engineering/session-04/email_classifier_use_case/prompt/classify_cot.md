@@ -14,18 +14,27 @@ Important:
 - "Quick question" with urgent context → High urgency
 - Sarcastic complaints ("wow great job") → still Billing
 - Auto-reply / out-of-office → Other
-
-Classify into EXACTLY ONE:
-- Billing
-- Technical
-- Feature Request
-- Spam
-- Other
-
-Urgency:
-- High   (customer cannot use product / revenue impact)
-- Medium (issue exists but workaround available)
-- Low    (question or minor inconvenience)
+your output should follow the below schema 
+{'properties': {'category': {'description': 'One of: Billing, Technical, Feature Request, Spam, Other',
+   'enum': ['Billing', 'Technical', 'Feature Request', 'Spam', 'Other'],
+   'title': 'Category',
+   'type': 'string'},
+  'urgency': {'description': 'One of: High, Medium, Low',
+   'enum': ['High', 'Medium', 'Low'],
+   'title': 'Urgency',
+   'type': 'string'},
+  'confidence': {'description': 'Confidence score for this classification',
+   'maximum': 1.0,
+   'minimum': 0.0,
+   'title': 'Confidence',
+   'type': 'number'},
+  'summary': {'description': 'Short summary of the classification',
+   'maxLength': 100,
+   'title': 'Summary',
+   'type': 'string'}},
+ 'required': ['category', 'urgency', 'confidence', 'summary'],
+ 'title': 'EmailClassificationresult',
+ 'type': 'object'}
 
 
 Subject : {subject}
