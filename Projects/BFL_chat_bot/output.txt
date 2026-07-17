@@ -1,0 +1,22 @@
+# intial questions
+{
+  "reply": "Hello Rahul Tiwari,\n\nHere are the details of your loan (Loan ID: BFL2024001):\n\n- **Loan Type:** Personal Loan\n- **EMI Amount:** Rs 8,450\n- **Remaining Tenure:** 22 months\n- **Outstanding Balance:** Rs 1,85,900\n- **Next Due Date:** June 5, 2026\n- **Interest Rate:** 11.5%\n- **Total Tenure:** 72 months\n\nIf you have any more questions or need further assistance, feel free to ask!",
+  "session_id": "rohan123",
+  "tools_called": [
+    "get_loan_status"
+  ]
+}
+follow up questions
+{
+  "reply": "Your next due date for the loan (Loan ID: BFL2024001) is June 5, 2026. \n\nIf you need any further assistance, feel free to ask!",
+  "session_id": "rohan123",
+  "tools_called": []
+}
+
+{
+  "reply": "Here is your next 6-month EMI schedule for the loan (Loan ID: BFL2024001):\n\n1. **Installment 51**\n   - **Due Date:** June 5, 2026\n   - **Amount:** Rs 8,450\n\n2. **Installment 52**\n   - **Due Date:** July 5, 2026\n   - **Amount:** Rs 8,450\n\n3. **Installment 53**\n   - **Due Date:** August 5, 2026\n   - **Amount:** Rs 8,450\n\n4. **Installment 54**\n   - **Due Date:** September 5, 2026\n   - **Amount:** Rs 8,450\n\n5. **Installment 55**\n   - **Due Date:** October 5, 2026\n   - **Amount:** Rs 8,450\n\n6. **Installment 56**\n   - **Due Date:** November 5, 2026\n   - **Amount:** Rs 8,450\n\nIf you have any more questions or need further assistance, feel free to ask!",
+  "session_id": "rohan123",
+  "tools_called": [
+    "get_emi_schedule"
+  ]
+}
