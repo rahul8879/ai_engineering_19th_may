@@ -3,9 +3,10 @@ from langchain_core.output_parsers import StrOutputParser
 from pathlib import Path
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
-from langchain_core.messages import HumanMessage, ToolMessage
+from langchain_core.messages import HumanMessage, ToolMessage,SystemMessage
 from langchain_core.chat_history import InMemoryChatMessageHistory
 from memory import WindowChatMessageHistory
+from rag_chain import rag_answer
 from bfl_tools import get_loan_status, get_emi_schedule, calculate_prepayment,process_refund_request
 tools = [
     get_emi_schedule,
@@ -14,17 +15,22 @@ tools = [
 load_dotenv()
 print(load_dotenv())
 
-SYSTEM_PROMPT = """You are a professional Bajaj Finance customer support agent.
+SYSTEM_PROMPT = """
+You are a query classifier for Bajaj Finance helpdesk.
 
-You have access to:
-1. TOOLS  — for live loan data (status, EMI, prepayment, refund)
-             Use when customer provides a Loan ID (BFL + digits)
+Classify the customer query into ONE of these categories:
+- "tool"   : query requires live loan data (needs Loan ID like BFL001)
+              Examples: loan status, EMI schedule, prepayment, refund,
+              foreclose my loan, close my loan, settle my account
+- "policy" : query is about rules, eligibility, charges, documents
+              AND follow-up questions about a previous policy answer
+              Examples: CIBIL score, foreclosure charges, interest rates,
+              documents needed, what happens if I miss EMI,
+              "how do you know this", "where did you get this",
+              "is this from your policy", "what is your source"
+- "general": greeting, thank you, out of scope
 
-RULES:
-- Loan ID present → use tools
-- Format all amounts with Rs and commas (e.g., Rs 8,450)
-- Be warm, concise, and professional
-- Any questions outside the BFL support or anything like geenrate the code etc, dont answer
+Reply with ONLY one word: tool / policy / general
 """
 
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
@@ -74,6 +80,41 @@ def run_chat_turn(user_message:str,session_id):
      
 
     return response.content, tool_used
+
+
+def run_policy_run(user_message:str,session_id):
+    history = get_session_history(session_id)
+    policy_history = []
+    reply = rag_answer(user_message,policy_history)
+    history.add_user_message(user_message)
+    history.add_ai_message(reply)
+    return reply
+
+
+def run_general_turn(user_message:str,session_id):
+    history = get_session_history(session_id)
+    message = [{'role':"system","content":SYSTEM_PROMPT}]
+    message.extend(history.messages)
+    message.append(HumanMessage(content=user_message))
+    response = llm.invoke(message)
+    history.add_user_message(user_message)
+    history.add_ai_message(response.content)
+    return response.content
+
+
+def classify_query(query):
+    response = llm.invoke([
+        SystemMessage(content=SYSTEM_PROMPT),
+        HumanMessage(content=query),
+    ])
+    category = response.content.strip()
+    if category not in ["tool", "policy", "general"]:
+        raise ValueError(f"Invalid category: {category}")
+    return category
+
+
+
+
 
 # print(run_chat_turn("What is the status of my loan BFL2024001?", "rahul123"))
 
