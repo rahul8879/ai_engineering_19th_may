@@ -10,15 +10,6 @@ app = FastAPI(
 )
 
 
-
-
-
-
-
-
-
-
-
 class ChatRequest(BaseModel):
     message: str
     session_id: str
