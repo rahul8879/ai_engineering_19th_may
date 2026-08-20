@@ -1,8 +1,10 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from paths import ENV_FILES
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=ENV_FILES,
         case_sensitive=False,
         extra="ignore"
     )
@@ -15,6 +17,9 @@ class Settings(BaseSettings):
     pinecone_api_key: str
     pinecone_index_name: str = "hireflow-resumes"
     pinecone_jd_index_name: str = "hireflow-jd"
+    # Serverless indexes need a cloud + region; aws/us-east-1 is the free tier.
+    pinecone_cloud: str = "aws"
+    pinecone_region: str = "us-east-1"
 
 
     # ── Redis ───────────────────────────────────────────────────────

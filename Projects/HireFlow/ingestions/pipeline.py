@@ -1,9 +1,9 @@
 from pathlib import Path
-from loader import load_data,load_single_resume
-from chunker import chunk_documents
-from metadata import build_candidate_id
-from embedder import embed_texts
-from vector_store import upsert_chunks
+from .loader import load_data,load_single_resume
+from .chunker import chunk_documents
+from .metadata import build_candidate_id
+from .embedder import embed_texts
+from .vector_store import upsert_chunks
 def ingest_resume(file_path: str) -> dict:
     """
       Steps:
@@ -50,8 +50,11 @@ def ingest_resume(file_path: str) -> dict:
 
     return result
 
-  # Result: {'candidate_id': 'andrew.green@email.com', 
-  #          'file_name': 'Andrew_Green_Resume_27.pdf', 
+  # Result: {'candidate_id': 'andrew.green@email.com',
+  #          'file_name': 'Andrew_Green_Resume_27.pdf',
   #          'chunks': 2, 'status': 'success'}
 
-ingest_resume("resume/Andrew_Green_Resume_27.pdf")
+
+if __name__ == "__main__":
+    #python -m ingestions.pipeline   (from the HireFlow/ directory)
+    ingest_resume("resume/Andrew_Green_Resume_27.pdf")

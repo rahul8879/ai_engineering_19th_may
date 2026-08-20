@@ -10,7 +10,7 @@ def chunk_documents(documents: List[Document]) -> List[TextNode]:
         paragraph_separator="\n\n",
     )
 
-    nodes = splitter.split_documents(documents)
+    nodes = splitter.get_nodes_from_documents(documents)
     #attach chunk index per source file for context enrichment
     file_chunk_counter:dict = {}
     for node in nodes:

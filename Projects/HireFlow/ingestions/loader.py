@@ -1,26 +1,25 @@
-import os
-from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 from llama_index.core import SimpleDirectoryReader
 from llama_index.core.schema import Document
 
+from paths import resolve_path
 
 
 def load_single_resume(file_path: str) -> List[Document]:
     """Load a single resume from a PDF file."""
-    path = Path(file_path)
+    path = resolve_path(file_path)
     print(f"Loading resume from: {path}")
     if not path.exists():
-        raise FileNotFoundError(f"File not found: {file_path}")
+        raise FileNotFoundError(f"File not found: {path}")
     if path.suffix.lower() != ".pdf":
         raise ValueError(f"Invalid file type: {file_path}. Only PDF files are supported.")
-    reader = SimpleDirectoryReader(input_files=str(path))
+    reader = SimpleDirectoryReader(input_files=[str(path)])
     documents = reader.load_data()
     return documents
 
 def load_data(file_path: str) -> List[Document]:
-    resume_path = Path(file_path)
+    resume_path = resolve_path(file_path)
     if not resume_path.exists():
         raise FileNotFoundError(f"Resume file not found: {resume_path}")
     pdf_files = list(resume_path.glob("*.pdf"))

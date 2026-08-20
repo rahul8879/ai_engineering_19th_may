@@ -1,5 +1,5 @@
 from typing import List, Dict, Any
-from pinecone import Pinecone
+from pinecone import Pinecone, ServerlessSpec
 from config import settings
 
 _index = None
@@ -9,6 +9,21 @@ def _get_index():
     global _index
     if _index is None:
         pc = Pinecone(api_key=settings.pinecone_api_key)
+
+        # create if index is not available
+        if not pc.has_index(settings.pinecone_index_name):
+            print(f"  Index '{settings.pinecone_index_name}' not found — creating...")
+            pc.create_index(
+                name=settings.pinecone_index_name,
+                dimension=settings.openai_embedding_dimensions,
+                metric="cosine",
+                spec=ServerlessSpec(
+                    cloud=settings.pinecone_cloud,
+                    region=settings.pinecone_region,
+                ),
+            )
+            print(f"  Index '{settings.pinecone_index_name}' ready.")
+
         _index = pc.Index(settings.pinecone_index_name)
     return _index
 
