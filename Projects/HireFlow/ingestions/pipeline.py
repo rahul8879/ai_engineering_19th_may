@@ -57,4 +57,4 @@ def ingest_resume(file_path: str) -> dict:
 
 if __name__ == "__main__":
     #python -m ingestions.pipeline   (from the HireFlow/ directory)
-    ingest_resume("resume/Andrew_Green_Resume_27.pdf")
+    ingest_resume("resume/Angela_Lewis_Resume_09.pdf")

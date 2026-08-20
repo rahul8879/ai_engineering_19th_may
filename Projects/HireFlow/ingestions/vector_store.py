@@ -9,7 +9,6 @@ def _get_index():
     global _index
     if _index is None:
         pc = Pinecone(api_key=settings.pinecone_api_key)
-
         # create if index is not available
         if not pc.has_index(settings.pinecone_index_name):
             print(f"  Index '{settings.pinecone_index_name}' not found — creating...")
