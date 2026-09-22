@@ -6,3 +6,6 @@ https://arxiv.org/pdf/2210.03629
 
 # Cognitive Architectures for Language Agents(After session 3)
 https://arxiv.org/pdf/2309.02427 ( Must read paper)
+
+# Langchain : Memory
+https://docs.langchain.com/oss/python/concepts/memory
