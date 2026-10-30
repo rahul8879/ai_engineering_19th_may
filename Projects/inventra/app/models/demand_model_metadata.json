@@ -1,0 +1,45 @@
+{
+  "categorical_features": [
+    "category",
+    "region",
+    "weather_condition"
+  ],
+  "numeric_features": [
+    "temperature",
+    "rainfall",
+    "humidity",
+    "month",
+    "day_of_week",
+    "is_weekend"
+  ],
+  "target": "qty",
+  "encoded_feature_names": [
+    "category_Electronics",
+    "category_Home Appliances",
+    "category_Home Care",
+    "category_Kitchen Appliances",
+    "category_Lighting",
+    "category_Personal Care",
+    "category_Water Solutions",
+    "region_Central",
+    "region_East",
+    "region_North",
+    "region_South",
+    "region_West",
+    "weather_condition_Clear",
+    "weather_condition_Cloudy",
+    "weather_condition_Cold",
+    "weather_condition_Heatwave",
+    "weather_condition_Heavy Rain",
+    "weather_condition_Partly Cloudy",
+    "weather_condition_Rainy",
+    "weather_condition_Sunny",
+    "weather_condition_Thunderstorm",
+    "temperature",
+    "rainfall",
+    "humidity",
+    "month",
+    "day_of_week",
+    "is_weekend"
+  ]
+}
